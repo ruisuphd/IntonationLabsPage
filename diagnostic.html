@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Report</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .diagnostic {
+      background: #f0f0f0;
+      padding: 15px;
+      margin: 10px 0;
+      border-left: 4px solid #333;
+    }
+    .label {
+      font-weight: bold;
+      display: inline-block;
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Viewport Diagnostics</h1>
+  <div id="output"></div>
+  
+  <script>
+    function runDiagnostics() {
+      const output = document.getElementById('output');
+      const navToggle = window.parent.document.querySelector('.nav__toggle');
+      const menuLayer = window.parent.document.querySelector('.nav__menu-layer');
+      const desktopLinks = window.parent.document.querySelector('.nav__links');
+      
+      const data = {
+        'window.innerWidth': window.parent.innerWidth,
+        'window.matchMedia(max-width: 768px).matches': window.parent.matchMedia('(max-width: 768px)').matches,
+        '.nav__toggle display': navToggle ? getComputedStyle(navToggle).display : 'element not found',
+        '.nav__menu-layer transform': menuLayer ? getComputedStyle(menuLayer).transform : 'element not found',
+        '.nav__links display': desktopLinks ? getComputedStyle(desktopLinks).display : 'element not found',
+        'Desktop links visible': desktopLinks ? (getComputedStyle(desktopLinks).display !== 'none') : 'N/A'
+      };
+      
+      let html = '';
+      for (const [key, value] of Object.entries(data)) {
+        html += `<div class="diagnostic"><span class="label">${key}:</span> ${value}</div>`;
+      }
+      output.innerHTML = html;
+    }
+    
+    // Run on load and on resize
+    window.addEventListener('load', runDiagnostics);
+    window.addEventListener('resize', runDiagnostics);
+    runDiagnostics();
+  </script>
+</body>
+</html>
