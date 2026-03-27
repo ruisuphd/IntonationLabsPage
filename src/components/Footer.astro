@@ -1,0 +1,71 @@
+---
+import { t, localePath } from '@/i18n/index';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">Intonation Labs</div>
+        <p class="footer__desc">{t(lang, 'foot.desc')}</p>
+        <p style="font-size:0.8125rem;">info@intonationlabs.com</p>
+        <p class="footer__uen">UEN: 202607645W</p>
+        <div class="footer__compliance">
+          <span class="footer__compliance-badge">PDPA Compliant</span>
+          <span class="footer__compliance-badge">ISO 27001 Aligned</span>
+          <span class="footer__compliance-badge">Responsible AI</span>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer__heading">{t(lang, 'foot.h.svc')}</h4>
+        <ul class="footer__links">
+          <li><a href={localePath(lang, '/services')}>{t(lang, 'foot.s1')}</a></li>
+          <li><a href={localePath(lang, '/services')}>{t(lang, 'foot.s2')}</a></li>
+          <li><a href={localePath(lang, '/services')}>{t(lang, 'foot.s3')}</a></li>
+          <li><a href={localePath(lang, '/services')}>{t(lang, 'foot.s4')}</a></li>
+          <li><a href={localePath(lang, '/services')}>{t(lang, 'foot.s5')}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__heading">{t(lang, 'foot.h.company')}</h4>
+        <ul class="footer__links">
+          <li><a href={localePath(lang, '/about')}>{t(lang, 'foot.c1')}</a></li>
+          <li><a href={localePath(lang, '/portfolio')}>{t(lang, 'foot.c2')}</a></li>
+          <li><a href={localePath(lang, '/workshops')}>{t(lang, 'foot.c3')}</a></li>
+          <li><a href={`${localePath(lang, '/')}#faq`}>FAQ</a></li>
+          <li><a href={localePath(lang, '/intonationai')}>IntonationAI</a></li>
+          <li><a href={localePath(lang, '/intomeeting')}>IntoMeeting</a></li>
+          <li><a href={localePath(lang, '/intomarketing')}>IntoMarketing</a></li>
+          <li><a href={localePath(lang, '/blog')}>{t(lang, 'foot.c4')}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__heading">{t(lang, 'foot.h.connect')}</h4>
+        <ul class="footer__links">
+          <li><a href="https://www.linkedin.com/company/intonation-labs" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://x.com/intonationlabs" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+          <li><a href="https://instagram.com/intonationlabs" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.threads.net/@intonationlabs" target="_blank" rel="noopener noreferrer">Threads</a></li>
+          <li><a href="https://xhslink.com/m/6wjtqSlUR3y" target="_blank" rel="noopener noreferrer">{t(lang, 'foot.xiaohongshu')}</a></li>
+          <li><a href="https://github.com/ruisuphd" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.ruisuphd.com" target="_blank" rel="noopener noreferrer">{t(lang, 'foot.founder')}</a></li>
+          <li><a href="mailto:info@intonationlabs.com">{t(lang, 'foot.email')}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>{t(lang, 'foot.copy')}</p>
+      <p style="font-size:0.75rem;">
+        <a href={localePath(lang, '/privacy')} style="color:rgba(255,255,255,0.4);">{t(lang, 'foot.privacy')}</a>
+        &middot;
+        <a href={localePath(lang, '/terms')} style="color:rgba(255,255,255,0.4);">{t(lang, 'foot.terms')}</a>
+      </p>
+    </div>
+  </div>
+</footer>

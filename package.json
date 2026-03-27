@@ -1,0 +1,17 @@
+{
+  "name": "intonation-labs-website",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.5.4",
+    "@astrojs/sitemap": "^3.3.0",
+    "firebase": "^11.4.0",
+    "firebase-admin": "^13.1.0"
+  }
+}

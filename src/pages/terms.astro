@@ -1,0 +1,120 @@
+---
+import Base from '@/layouts/Base.astro';
+import { t, localePath } from '@/i18n/index';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+const lang = 'en';
+---
+
+<Base
+  title={t(lang, 'page.terms.title')}
+  description={t(lang, 'page.terms.desc')}
+  lang={lang}
+  canonicalPath="/terms"
+>
+  <Breadcrumb
+    lang={lang}
+    items={[
+      { label: t(lang, 'breadcrumb.home'), href: localePath(lang, '/') },
+      { label: t(lang, 'terms.title') },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container container--narrow legal">
+      <h1 class="section__title reveal">{t(lang, 'terms.title')}</h1>
+      <p class="section__subtitle reveal" style="margin-bottom:var(--s-2xl)">Last updated: March 2026</p>
+
+      <div class="reveal">
+        <p>These Terms of Service ("Terms") govern your use of the website, services, and products provided by Intonation Labs Pte. Ltd. (UEN: 202607645W), a company registered in Singapore ("we", "us", "our"). By engaging our services or using our website, you agree to these Terms.</p>
+
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing our website at www.intonationlabs.com, submitting a contact form, engaging our consulting services, attending our workshops, or using the IntonationAI platform, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you are entering into these Terms on behalf of a company or organisation, you represent that you have authority to bind that entity.</p>
+
+        <h2>2. Services Description</h2>
+        <p>Intonation Labs provides the following services:</p>
+        <ul>
+          <li><strong>AI Consulting</strong> — project-based engagements including Generative AI and RAG system design, agentic AI architecture, production ML deployment, real-time inference systems, voice and audio AI, and AI strategy assessments</li>
+          <li><strong>Workshops &amp; Training</strong> — hands-on technical workshops, strategic sessions for business leaders, and bespoke corporate training programmes delivered in-person or virtually</li>
+          <li><strong>IntonationAI Platform</strong> — an AI-powered vocal coaching application providing real-time pitch detection and LLM-powered feedback, offered as a subscription service</li>
+          <li><strong>Monthly Retainer</strong> — ongoing advisory, architecture guidance, code review, and fractional ML engineering services</li>
+        </ul>
+
+        <h2>3. Engagement Terms</h2>
+
+        <h3>3.1 Consulting Engagements</h3>
+        <p>All consulting engagements begin with a discovery call and are formalised through a written proposal or statement of work ("SOW") that specifies scope, deliverables, timeline, and pricing. Work commences only upon written acceptance of the proposal by both parties.</p>
+
+        <h3>3.2 Project-Based Pricing</h3>
+        <p>We primarily operate on fixed-price, project-based engagements. The agreed price covers all deliverables specified in the SOW. Any work outside the agreed scope requires a written change order with revised pricing.</p>
+
+        <h3>3.3 Payment Terms</h3>
+        <p>Unless otherwise specified in the SOW:</p>
+        <ul>
+          <li>A deposit of 50% of the project fee is due upon acceptance of the proposal</li>
+          <li>The remaining balance is due upon delivery of final deliverables</li>
+          <li>For retainer engagements, payment is due monthly in advance</li>
+          <li>Invoices are payable within 14 days of issue</li>
+          <li>All prices are quoted in Singapore Dollars (SGD) unless otherwise stated</li>
+        </ul>
+
+        <h3>3.4 Workshops</h3>
+        <p>Workshop registration is confirmed upon receipt of payment. Cancellations made more than 7 days before the workshop date are eligible for a full refund. Cancellations within 7 days may be transferred to a future session at no additional cost.</p>
+
+        <h2>4. Intellectual Property</h2>
+
+        <h3>4.1 Client Deliverables</h3>
+        <p>Upon full payment, the client receives ownership of all custom code, models, and documentation produced specifically for the engagement as outlined in the SOW, unless otherwise agreed in writing.</p>
+
+        <h3>4.2 Pre-Existing IP</h3>
+        <p>Intonation Labs retains ownership of all pre-existing intellectual property, frameworks, tools, libraries, and methodologies used in the delivery of services. Where pre-existing IP is incorporated into client deliverables, the client receives a perpetual, non-exclusive licence to use such IP within the scope of the project.</p>
+
+        <h3>4.3 General Knowledge</h3>
+        <p>Nothing in these Terms restricts Intonation Labs from using general knowledge, skills, experience, and techniques acquired during an engagement, provided that no confidential information is disclosed.</p>
+
+        <h2>5. Confidentiality</h2>
+        <p>Both parties agree to treat as confidential all non-public information exchanged during the engagement, including but not limited to business strategies, technical architectures, datasets, and proprietary algorithms. Confidential information shall not be disclosed to third parties without prior written consent, except as required by law.</p>
+        <p>Confidentiality obligations survive the termination of the engagement for a period of 2 years.</p>
+
+        <h2>6. Data Protection</h2>
+        <p>We process personal data in accordance with our <a href="/privacy">Privacy Policy</a> and the Personal Data Protection Act 2012 (PDPA) of Singapore. For consulting engagements involving client data, data handling responsibilities will be specified in the SOW or a separate Data Processing Agreement.</p>
+
+        <h2>7. Limitation of Liability</h2>
+        <p>To the maximum extent permitted by Singapore law:</p>
+        <ul>
+          <li>Our total aggregate liability for any claims arising from an engagement shall not exceed the total fees paid by the client for that specific engagement</li>
+          <li>We shall not be liable for indirect, incidental, consequential, special, or punitive damages, including loss of profits, data, or business opportunities</li>
+          <li>We are not liable for delays or failures in performance resulting from circumstances beyond our reasonable control (force majeure)</li>
+        </ul>
+
+        <h2>8. Warranties &amp; Disclaimers</h2>
+        <p>We warrant that our services will be performed with reasonable skill and care consistent with industry standards. We do not guarantee specific business outcomes, revenue increases, or performance metrics unless explicitly stated in the SOW.</p>
+        <p>The IntonationAI platform is provided "as is" and "as available" without warranties of any kind, except as expressly stated in the applicable subscription agreement.</p>
+
+        <h2>9. Termination</h2>
+        <p>Either party may terminate an engagement with 14 days' written notice. Upon termination:</p>
+        <ul>
+          <li>The client shall pay for all work completed up to the termination date</li>
+          <li>Intonation Labs shall deliver all completed and in-progress work products</li>
+          <li>Confidentiality obligations continue as specified in Section 5</li>
+        </ul>
+
+        <h2>10. Governing Law &amp; Dispute Resolution</h2>
+        <p>These Terms are governed by and construed in accordance with the laws of the Republic of Singapore. Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Singapore.</p>
+        <p>The parties agree to attempt to resolve any dispute through good-faith negotiation before initiating formal legal proceedings.</p>
+
+        <h2>11. Changes to These Terms</h2>
+        <p>We reserve the right to update these Terms at any time. Changes will be posted on this page with an updated "Last updated" date. Continued use of our services after changes constitutes acceptance of the revised Terms. For active engagements, material changes will be communicated directly.</p>
+
+        <h2>12. Contact Us</h2>
+        <p>For questions about these Terms of Service:</p>
+        <p>
+          <strong>Intonation Labs Pte. Ltd.</strong><br>
+          Email: <a href="mailto:info@intonationlabs.com">info@intonationlabs.com</a><br>
+          UEN: 202607645W<br>
+          Singapore
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

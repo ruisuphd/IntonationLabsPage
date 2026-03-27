@@ -1,0 +1,19 @@
+---
+interface Props {
+  question: string;
+  answer: string;
+}
+
+const { question, answer } = Astro.props;
+const faqId = `faq-${question.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '').toLowerCase().slice(0, 40)}`;
+---
+
+<div class="faq-item">
+  <button class="faq-item__question" id={`${faqId}-q`} aria-expanded="false" aria-controls={`${faqId}-a`}>
+    <span>{question}</span>
+    <span class="faq-item__icon" aria-hidden="true">+</span>
+  </button>
+  <div class="faq-item__answer" id={`${faqId}-a`} role="region" aria-labelledby={`${faqId}-q`}>
+    <p>{answer}</p>
+  </div>
+</div>

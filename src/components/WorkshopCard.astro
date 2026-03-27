@@ -1,0 +1,23 @@
+---
+interface Props {
+  format: string;
+  formatClass: string;
+  title: string;
+  desc: string;
+  duration: string;
+  price: string;
+  delay?: number;
+}
+
+const { format, formatClass, title, desc, duration, price, delay = 1 } = Astro.props;
+---
+
+<div class={`workshop-card reveal reveal-delay-${delay}`}>
+  <span class={`workshop-card__format workshop-card__format--${formatClass}`}>{format}</span>
+  <h3 class="workshop-card__title">{title}</h3>
+  <p class="workshop-card__desc">{desc}</p>
+  <div class="workshop-card__meta">
+    <span class="workshop-card__duration">{duration}</span>
+    <span class="workshop-card__price">{price}</span>
+  </div>
+</div>
