@@ -333,8 +333,6 @@
   "cookie.reject": "拒绝非必要Cookie",
   "cookie.save": "保存设置",
 
-  "dark.toggle": "切换暗色模式",
-
   "page.services.title": "AI咨询服务 — Intonation Labs",
   "page.services.desc": "生产级AI咨询服务：生成式AI、RAG系统、智能体AI、ML部署、实时推理和语音音频AI。新加坡总部，服务全球。",
   "page.intonationai.title": "IntonationAI — AI音乐教练：声乐、钢琴和吉他",
