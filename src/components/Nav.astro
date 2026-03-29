@@ -235,6 +235,16 @@ const segment = rawPath.replace(/^\/?zh\/?/, '/').replace(/^\//, '').split('/')[
 
   /* Mobile: inline list within overlay */
   @media (max-width: 768px) {
+    .nav__dropdown-li {
+      display: flex;
+      flex-direction: column;
+    }
+    .nav__dropdown-toggle {
+      font-size: 1.0625rem;
+      padding: var(--s-md) 0;
+      width: 100%;
+      text-align: left;
+    }
     .nav__dropdown {
       position: static;
       transform: none;
@@ -243,11 +253,8 @@ const segment = rawPath.replace(/^\/?zh\/?/, '/').replace(/^\//, '').split('/')[
       border-left: 2px solid var(--c-accent, #0070C0);
       border-radius: 0;
       padding: 4px 0 4px 12px;
-      margin-top: 4px;
+      margin-top: 0;
       background: transparent;
-    }
-    .nav__dropdown-toggle {
-      font-size: 1.0625rem;
     }
     .nav__dropdown-link {
       padding: 8px 0;
