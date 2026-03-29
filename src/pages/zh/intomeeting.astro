@@ -90,6 +90,24 @@ const panels = [
                 <p class="product__feature-desc">{t(lang, 'meet.f4.desc')}</p>
               </div>
             </div>
+            <div class="product__feature">
+              <div class="product__feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3l2.5 3h5l2.5-3h3a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-3l-2.5-3z"/></svg>
+              </div>
+              <div>
+                <p class="product__feature-title">{t(lang, 'meet.f5.title')}</p>
+                <p class="product__feature-desc">{t(lang, 'meet.f5.desc')}</p>
+              </div>
+            </div>
+            <div class="product__feature">
+              <div class="product__feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <p class="product__feature-title">{t(lang, 'meet.f6.title')}</p>
+                <p class="product__feature-desc">{t(lang, 'meet.f6.desc')}</p>
+              </div>
+            </div>
           </div>
 
           <p class="product__coming mt-xl">{t(lang, 'meet.coming')}</p>
@@ -126,7 +144,39 @@ const panels = [
     </div>
   </section>
 
-  <section class="section section--alt" aria-labelledby="partnership-title">
+  <section class="section section--alt" aria-labelledby="pricing-title">
+    <div class="container">
+      <div class="section__header text-center reveal">
+        <h2 id="pricing-title" class="section__title">{t(lang, 'meet.pricing.title')}</h2>
+      </div>
+      <div class="pricing-grid reveal reveal-delay-1">
+        <div class="pricing-card">
+          <p class="pricing-card__name">{t(lang, 'meet.pricing.free.name')}</p>
+          <p class="pricing-card__price">{t(lang, 'meet.pricing.free.price')}</p>
+          <p class="pricing-card__desc">{t(lang, 'meet.pricing.free.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'meet.pricing.free.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'meet.pricing.free.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'meet.pricing.free.f3')}</li>
+          </ul>
+          <a href="https://intomeeting.app" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Get started</a>
+        </div>
+        <div class="pricing-card pricing-card--featured">
+          <p class="pricing-card__name">{t(lang, 'meet.pricing.enterprise.name')}</p>
+          <p class="pricing-card__price">{t(lang, 'meet.pricing.enterprise.price')}</p>
+          <p class="pricing-card__desc">{t(lang, 'meet.pricing.enterprise.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'meet.pricing.enterprise.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'meet.pricing.enterprise.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'meet.pricing.enterprise.f3')}</li>
+          </ul>
+          <a href="https://intomeeting.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="partnership-title">
     <div class="container text-center">
       <div class="reveal">
         <h2 id="partnership-title" class="section__title">{t(lang, 'meet.partner')}</h2>
@@ -148,69 +198,3 @@ const panels = [
     </div>
   </section>
 </Base>
-
-<style>
-  .product__coming {
-    font-family: var(--f-heading);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--c-accent);
-  }
-  .product__stack {
-    font-size: 0.8125rem;
-    color: var(--c-text-tertiary);
-    margin-top: var(--s-sm);
-  }
-  .product__cta-row {
-    display: flex;
-    gap: var(--s-md);
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .meet__screen {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  }
-  .meet__panels {
-    display: flex;
-    gap: 1px;
-    background: var(--c-border);
-    padding: var(--s-md);
-    gap: var(--s-sm);
-  }
-  .meet__panel {
-    flex: 1;
-    background: var(--c-bg);
-    border: 1px solid var(--c-border);
-    border-radius: 6px;
-    padding: var(--s-sm);
-    min-width: 0;
-  }
-  .meet__panel-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--c-text-secondary);
-    margin-bottom: var(--s-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .meet__panel-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .meet__panel-lines span {
-    display: block;
-    height: 6px;
-    background: var(--c-border);
-    border-radius: 3px;
-    width: 100%;
-  }
-</style>

@@ -47,6 +47,12 @@ const segment = rawPath.replace(/^\/?zh\/?/, '/').replace(/^\//, '').split('/')[
           <a href={zhPath} class={`lang-toggle__btn${lang === 'zh' ? ' is-active' : ''}`} aria-label="中文">中文</a>
         </div>
       </li>
+      <li class="nav__theme-li">
+        <button class="nav__theme-toggle" aria-label={t(lang, 'dark.toggle')} type="button">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </li>
       <li><a href={localePath(lang, '/contact')} class="nav__cta">{t(lang, 'nav.cta')}</a></li>
     </ul>
   </div>
@@ -143,6 +149,17 @@ const segment = rawPath.replace(/^\/?zh\/?/, '/').replace(/^\//, '').split('/')[
 })();
 </script>
 
+<script is:inline>
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.nav__theme-toggle');
+    if (!btn) return;
+    var html = document.documentElement;
+    var isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  });
+</script>
+
 <style>
   /* Products dropdown */
   .nav__dropdown-li {
@@ -235,6 +252,39 @@ const segment = rawPath.replace(/^\/?zh\/?/, '/').replace(/^\//, '').split('/')[
     .nav__dropdown-link {
       padding: 8px 0;
       font-size: 1rem;
+    }
+  }
+
+  /* Theme toggle */
+  .nav__theme-li {
+    display: flex;
+    align-items: center;
+  }
+  .nav__theme-toggle {
+    background: none;
+    border: 1px solid var(--c-border);
+    border-radius: 8px;
+    padding: 6px;
+    cursor: pointer;
+    color: var(--c-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav__theme-toggle:hover {
+    color: var(--c-text-primary);
+    border-color: var(--c-text-tertiary);
+  }
+  :global([data-theme="dark"]) .icon-sun { display: none; }
+  :global([data-theme="light"]) .icon-moon,
+  :global(:not([data-theme])) .icon-moon { display: none; }
+  :global([data-theme="dark"]) .icon-moon { display: block; }
+
+  @media (max-width: 768px) {
+    .nav__theme-li {
+      border-bottom: none !important;
+      padding: var(--s-md) 0;
     }
   }
 </style>

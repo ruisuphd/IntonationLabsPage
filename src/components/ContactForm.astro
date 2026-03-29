@@ -16,6 +16,12 @@ const { lang } = Astro.props;
   data-error={t(lang, 'contact.error')}
   data-sending={t(lang, 'contact.sending')}
 >
+  <!-- Honeypot field for bot detection -->
+  <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
+    <label for="website" class="sr-only">Leave this empty</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
   <div class="contact-form__row">
     <div class="contact-form__group">
       <label class="contact-form__label" for="name">{t(lang, 'contact.name')}</label>
@@ -90,6 +96,24 @@ const { lang } = Astro.props;
       const status = document.getElementById('form-status')!;
       const originalText = btn.textContent;
 
+      // Honeypot check — if filled, silently pretend success (bots fill hidden fields)
+      const honeypot = (form.querySelector<HTMLInputElement>('input[name="website"]'))!;
+      if (honeypot && honeypot.value) {
+        status.classList.add('contact-form__status--success');
+        status.textContent = successMsg;
+        form.reset();
+        return;
+      }
+
+      // Client-side rate limiting — max 3 submissions per session
+      const RATE_KEY = 'contact_submit_count';
+      const submitCount = parseInt(sessionStorage.getItem(RATE_KEY) || '0', 10);
+      if (submitCount >= 3) {
+        status.classList.add('contact-form__status--error');
+        status.textContent = errorMsg;
+        return;
+      }
+
       // Validate required fields
       const requiredFields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]');
       let firstInvalid: HTMLElement | null = null;
@@ -111,6 +135,8 @@ const { lang } = Astro.props;
 
       try {
         const data = Object.fromEntries(new FormData(form));
+        // Remove honeypot field before sending
+        delete (data as Record<string, unknown>).website;
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -118,6 +144,7 @@ const { lang } = Astro.props;
         });
 
         if (res.ok) {
+          sessionStorage.setItem(RATE_KEY, String(submitCount + 1));
           status.classList.add('contact-form__status--success');
           status.textContent = successMsg;
           form.reset();

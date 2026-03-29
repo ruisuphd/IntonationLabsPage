@@ -103,6 +103,24 @@ const steps = [
                 <p class="product__feature-desc">{t(lang, 'mkt.f4.desc')}</p>
               </div>
             </div>
+            <div class="product__feature">
+              <div class="product__feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <p class="product__feature-title">{t(lang, 'mkt.f5.title')}</p>
+                <p class="product__feature-desc">{t(lang, 'mkt.f5.desc')}</p>
+              </div>
+            </div>
+            <div class="product__feature">
+              <div class="product__feature-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="9" x2="12" y2="2"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/><line x1="23" y1="22" x2="1" y2="22"/><polyline points="16 5 12 9 8 5"/></svg>
+              </div>
+              <div>
+                <p class="product__feature-title">{t(lang, 'mkt.f6.title')}</p>
+                <p class="product__feature-desc">{t(lang, 'mkt.f6.desc')}</p>
+              </div>
+            </div>
           </div>
 
           <p class="product__coming mt-xl">{t(lang, 'mkt.coming')}</p>
@@ -144,12 +162,24 @@ const steps = [
           <p class="pricing-card__name">{t(lang, 'mkt.pricing.starter.name')}</p>
           <p class="pricing-card__price">{t(lang, 'mkt.pricing.starter.price')}</p>
           <p class="pricing-card__desc">{t(lang, 'mkt.pricing.starter.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.starter.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.starter.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.starter.f3')}</li>
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.starter.f4')}</li>
+          </ul>
           <a href="https://intomarketing.app" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">{t(lang, 'mkt.cta')}</a>
         </div>
         <div class="pricing-card pricing-card--featured">
           <p class="pricing-card__name">{t(lang, 'mkt.pricing.pro.name')}</p>
           <p class="pricing-card__price">{t(lang, 'mkt.pricing.pro.price')}</p>
           <p class="pricing-card__desc">{t(lang, 'mkt.pricing.pro.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.pro.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.pro.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.pro.f3')}</li>
+            <li class="pricing-card__feature">{t(lang, 'mkt.pricing.pro.f4')}</li>
+          </ul>
           <a href="https://intomarketing.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">{t(lang, 'mkt.pricing.pro.name')}</a>
         </div>
       </div>
@@ -178,105 +208,3 @@ const steps = [
     </div>
   </section>
 </Base>
-
-<style>
-  .product__coming {
-    font-family: var(--f-heading);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--c-accent);
-  }
-  .product__stack {
-    font-size: 0.8125rem;
-    color: var(--c-text-tertiary);
-    margin-top: var(--s-sm);
-  }
-  .product__cta-row {
-    display: flex;
-    gap: var(--s-md);
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .mkt__screen {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-    padding-bottom: var(--s-md);
-  }
-  .mkt__flow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: var(--s-lg) var(--s-md) var(--s-sm);
-    gap: var(--s-xs);
-  }
-  .mkt__step {
-    display: flex;
-    align-items: center;
-    gap: var(--s-sm);
-    background: var(--c-bg);
-    border: 1px solid var(--c-border);
-    border-radius: 8px;
-    padding: var(--s-sm) var(--s-md);
-    width: 100%;
-    max-width: 260px;
-  }
-  .mkt__step-num {
-    font-family: var(--f-heading);
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--c-accent);
-    min-width: 24px;
-  }
-  .mkt__step-label {
-    font-size: 0.8125rem;
-    color: var(--c-text-secondary);
-  }
-  .mkt__arrow {
-    font-size: 0.875rem;
-    color: var(--c-text-tertiary);
-  }
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--s-lg);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .pricing-card {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    border-radius: 12px;
-    padding: var(--s-xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--s-sm);
-    align-items: flex-start;
-  }
-  .pricing-card--featured {
-    border-color: var(--c-accent);
-    box-shadow: 0 0 0 1px var(--c-accent);
-  }
-  .pricing-card__name {
-    font-family: var(--f-heading);
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--c-text-secondary);
-  }
-  .pricing-card__price {
-    font-family: var(--f-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--c-text-primary);
-    line-height: 1;
-  }
-  .pricing-card__desc {
-    font-size: 0.875rem;
-    color: var(--c-text-secondary);
-    flex: 1;
-  }
-</style>

@@ -65,6 +65,8 @@ const { lang } = Astro.props;
         <a href={localePath(lang, '/privacy')} style="color:rgba(255,255,255,0.4);">{t(lang, 'foot.privacy')}</a>
         &middot;
         <a href={localePath(lang, '/terms')} style="color:rgba(255,255,255,0.4);">{t(lang, 'foot.terms')}</a>
+        &middot;
+        <button class="footer__cookie-btn" type="button" onclick="window.dispatchEvent(new CustomEvent('open-cookie-settings'))">{t(lang, 'foot.cookies')}</button>
       </p>
     </div>
   </div>

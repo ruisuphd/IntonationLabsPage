@@ -28,6 +28,13 @@ const jsonLd = {
     },
     {
       '@type': 'Offer',
+      name: 'Essential',
+      price: '19',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/OnlineOnly',
+    },
+    {
+      '@type': 'Offer',
       name: 'Pro',
       priceCurrency: 'USD',
       availability: 'https://schema.org/OnlineOnly',
@@ -120,7 +127,56 @@ const waveHeights = [15,25,40,55,70,50,80,60,90,75,95,80,65,45,60,75,85,55,40,65
     </div>
   </section>
 
-  <section class="section section--alt" aria-labelledby="partnership-title">
+  <section class="section section--alt" aria-labelledby="pricing-title">
+    <div class="container">
+      <div class="section__header text-center reveal">
+        <h2 id="pricing-title" class="section__title">{t(lang, 'prod.pricing.title')}</h2>
+      </div>
+      <div class="pricing-grid pricing-grid--3 reveal reveal-delay-1">
+        <div class="pricing-card">
+          <p class="pricing-card__name">{t(lang, 'prod.pricing.free.name')}</p>
+          <p class="pricing-card__price">{t(lang, 'prod.pricing.free.price')}</p>
+          <p class="pricing-card__desc">{t(lang, 'prod.pricing.free.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.free.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.free.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.free.f3')}</li>
+          </ul>
+          <a href="https://intonationai.app" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">Get started</a>
+        </div>
+        <div class="pricing-card pricing-card--featured">
+          <span class="pricing-card__badge">{t(lang, 'prod.pricing.popular')}</span>
+          <p class="pricing-card__name">{t(lang, 'prod.pricing.essential.name')}</p>
+          <p class="pricing-card__price">{t(lang, 'prod.pricing.essential.price')}</p>
+          <p class="pricing-card__annual">{t(lang, 'prod.pricing.essential.annual')}</p>
+          <p class="pricing-card__desc">{t(lang, 'prod.pricing.essential.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.essential.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.essential.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.essential.f3')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.essential.f4')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.essential.f5')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.essential.f6')}</li>
+          </ul>
+          <a href="https://intonationai.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">Get Essential</a>
+        </div>
+        <div class="pricing-card">
+          <p class="pricing-card__name">{t(lang, 'prod.pricing.pro.name')}</p>
+          <p class="pricing-card__price">{t(lang, 'prod.pricing.pro.price')}</p>
+          <p class="pricing-card__annual">{t(lang, 'prod.pricing.pro.annual')}</p>
+          <p class="pricing-card__desc">{t(lang, 'prod.pricing.pro.desc')}</p>
+          <ul class="pricing-card__features">
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.pro.f1')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.pro.f2')}</li>
+            <li class="pricing-card__feature">{t(lang, 'prod.pricing.pro.f3')}</li>
+          </ul>
+          <a href="https://intonationai.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">Get Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="partnership-title">
     <div class="container text-center">
       <div class="reveal">
         <h2 id="partnership-title" class="section__title">{t(lang, 'prod.partner')}</h2>
@@ -142,17 +198,3 @@ const waveHeights = [15,25,40,55,70,50,80,60,90,75,95,80,65,45,60,75,85,55,40,65
     </div>
   </section>
 </Base>
-
-<style>
-  .product__coming {
-    font-family: var(--f-heading);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--c-accent);
-  }
-  .product__stack {
-    font-size: 0.8125rem;
-    color: var(--c-text-tertiary);
-    margin-top: var(--s-sm);
-  }
-</style>

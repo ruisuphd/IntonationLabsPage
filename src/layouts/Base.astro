@@ -3,6 +3,7 @@ import { t, localePath, htmlLang } from '@/i18n/index';
 import '@/styles/global.css';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import CookieConsent from '@/components/CookieConsent.astro';
 
 interface Props {
   title: string;
@@ -35,13 +36,47 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
 
-  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-JLS3NBVR55"></script>
   <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-JLS3NBVR55');
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <script is:inline>
+    function loadGA() {
+      if (document.querySelector('script[src*="googletagmanager"]')) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-JLS3NBVR55';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JLS3NBVR55', { anonymize_ip: true });
+    }
+    function loadTidio() {
+      if (document.querySelector('script[src*="tidio"]')) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://code.tidio.co/megth0dn3r3fjqud6z6nfamb3or54acn.js';
+      document.head.appendChild(s);
+    }
+    // Check existing consent
+    try {
+      var consent = JSON.parse(localStorage.getItem('cookie-consent'));
+      if (consent && consent.analytics) loadGA();
+      if (consent && consent.marketing) loadTidio();
+    } catch(e) {}
+    // Listen for consent changes
+    window.addEventListener('cookie-consent-changed', function(e) {
+      if (e.detail.analytics) loadGA();
+      if (e.detail.marketing) loadTidio();
+    });
   </script>
 
   <title>{title}</title>
@@ -94,7 +129,9 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   <Footer lang={lang} />
 
-  <button class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+  <button class="scroll-top" aria-label="Scroll to top" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
 
   <script is:inline>
   (function () {
@@ -116,12 +153,18 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     }, { threshold: 0.1, rootMargin: "0px 0px -60px 0px" });
     reveals.forEach(function (el) { observerReveal.observe(el); });
 
-    var backBtn = document.querySelector(".back-to-top");
-    if (backBtn) {
+    var scrollTopBtn = document.querySelector(".scroll-top");
+    if (scrollTopBtn) {
+      var scrollTopVisible = false;
+      var scrollTopThreshold = 400;
       window.addEventListener("scroll", function () {
-        backBtn.classList.toggle("is-visible", window.scrollY > window.innerHeight * 0.5);
+        var show = window.scrollY > scrollTopThreshold;
+        if (show !== scrollTopVisible) {
+          scrollTopVisible = show;
+          scrollTopBtn.classList.toggle("visible", show);
+        }
       }, { passive: true });
-      backBtn.addEventListener("click", function () {
+      scrollTopBtn.addEventListener("click", function () {
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
@@ -153,9 +196,53 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   })();
   </script>
 
+  <CookieConsent lang={lang} />
+
   <script is:inline>
-  (function(){var t=false;function l(){if(t)return;t=true;var s=document.createElement("script");s.src="https://code.tidio.co/megth0dn3r3fjqud6z6nfamb3or54acn.js";s.async=true;document.body.appendChild(s);}
-  setTimeout(l,5000);["scroll","mousemove","touchstart","keydown"].forEach(function(e){document.addEventListener(e,l,{once:true,passive:true});});})();
+    // Global error handler
+    window.addEventListener('error', function(e) {
+      console.warn('[Intonation Labs] Script error caught:', e.message);
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      console.warn('[Intonation Labs] Promise rejection caught:', e.reason);
+    });
+    // Web Vitals (inline, no dependency)
+    if ('PerformanceObserver' in window) {
+      try {
+        // LCP
+        new PerformanceObserver(function(list) {
+          var entries = list.getEntries();
+          var last = entries[entries.length - 1];
+          if (window.gtag) gtag('event', 'web_vital', { event_category: 'Web Vitals', event_label: 'LCP', value: Math.round(last.startTime) });
+        }).observe({ type: 'largest-contentful-paint', buffered: true });
+        // CLS
+        var clsValue = 0;
+        new PerformanceObserver(function(list) {
+          list.getEntries().forEach(function(entry) { if (!entry.hadRecentInput) clsValue += entry.value; });
+        }).observe({ type: 'layout-shift', buffered: true });
+        window.addEventListener('visibilitychange', function() {
+          if (document.visibilityState === 'hidden' && window.gtag) {
+            gtag('event', 'web_vital', { event_category: 'Web Vitals', event_label: 'CLS', value: Math.round(clsValue * 1000) });
+          }
+        });
+      } catch(e) {}
+    }
+    // Offline detection
+    window.addEventListener('offline', function() {
+      document.body.insertAdjacentHTML('afterbegin', '<div id="offline-bar" style="position:fixed;top:0;left:0;right:0;z-index:10000;background:#ef4444;color:#fff;text-align:center;padding:8px;font-size:14px;">You are offline. Some features may be unavailable.</div>');
+    });
+    window.addEventListener('online', function() {
+      var bar = document.getElementById('offline-bar');
+      if (bar) bar.remove();
+    });
+  </script>
+
+  <script is:inline>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function() {});
+      });
+    }
   </script>
 </body>
 </html>
