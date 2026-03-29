@@ -1,0 +1,164 @@
+---
+import { t } from '../i18n/index';
+
+interface Props {
+  lang: string;
+}
+
+const { lang } = Astro.props;
+---
+
+<form
+  class="contact-form"
+  id="contact-form"
+  novalidate
+  data-success={t(lang, 'contact.success')}
+  data-error={t(lang, 'contact.error')}
+  data-sending={t(lang, 'contact.sending')}
+>
+  <!-- Honeypot field for bot detection -->
+  <div style="position: absolute; left: -9999px; opacity: 0;" aria-hidden="true">
+    <label for="website" class="sr-only">Leave this empty</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="contact-form__row">
+    <div class="contact-form__group">
+      <label class="contact-form__label" for="name">{t(lang, 'contact.name')}</label>
+      <input class="contact-form__input" type="text" id="name" name="name" required />
+    </div>
+    <div class="contact-form__group">
+      <label class="contact-form__label" for="email">{t(lang, 'contact.email')}</label>
+      <input class="contact-form__input" type="email" id="email" name="email" required />
+    </div>
+  </div>
+  <div class="contact-form__row">
+    <div class="contact-form__group">
+      <label class="contact-form__label" for="company">{t(lang, 'contact.company')}</label>
+      <input class="contact-form__input" type="text" id="company" name="company" />
+    </div>
+    <div class="contact-form__group">
+      <label class="contact-form__label" for="inquiry_type">{t(lang, 'contact.type')}</label>
+      <select class="contact-form__select" id="inquiry_type" name="inquiry_type" required>
+        <option value="">&mdash;</option>
+        <option value="consulting">{t(lang, 'contact.type.consulting')}</option>
+        <option value="workshop">{t(lang, 'contact.type.workshop')}</option>
+        <option value="intonationai">{t(lang, 'contact.type.intonationai')}</option>
+        <option value="other">{t(lang, 'contact.type.other')}</option>
+      </select>
+    </div>
+  </div>
+  <div class="contact-form__group">
+    <label class="contact-form__label" for="message">{t(lang, 'contact.message')}</label>
+    <textarea class="contact-form__textarea" id="message" name="message" required></textarea>
+  </div>
+  <button type="submit" class="btn btn--primary btn--lg">{t(lang, 'contact.submit')}</button>
+  <div id="form-status" class="contact-form__status"></div>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  if (form) {
+    const successMsg = form.dataset.success!;
+    const errorMsg = form.dataset.error!;
+    const sendingMsg = form.dataset.sending!;
+
+    function clearValidation() {
+      form.querySelectorAll<HTMLElement>('[aria-invalid]').forEach((el) => {
+        el.removeAttribute('aria-invalid');
+        el.removeAttribute('aria-describedby');
+      });
+      form.querySelectorAll('.contact-form__field-error').forEach((el) => el.remove());
+    }
+
+    function markInvalid(field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
+      const errorId = field.id + '-error';
+      field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', errorId);
+      if (!document.getElementById(errorId)) {
+        const msg = document.createElement('span');
+        msg.id = errorId;
+        msg.className = 'contact-form__field-error';
+        msg.style.color = '#991b1b';
+        msg.style.fontSize = '0.8125rem';
+        msg.style.marginTop = '0.25rem';
+        msg.style.display = 'block';
+        msg.textContent = field.validationMessage || 'This field is required.';
+        field.parentElement?.appendChild(msg);
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearValidation();
+
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const status = document.getElementById('form-status')!;
+      const originalText = btn.textContent;
+
+      // Honeypot check — if filled, silently pretend success (bots fill hidden fields)
+      const honeypot = (form.querySelector<HTMLInputElement>('input[name="website"]'))!;
+      if (honeypot && honeypot.value) {
+        status.classList.add('contact-form__status--success');
+        status.textContent = successMsg;
+        form.reset();
+        return;
+      }
+
+      // Client-side rate limiting — max 3 submissions per session
+      const RATE_KEY = 'contact_submit_count';
+      const submitCount = parseInt(sessionStorage.getItem(RATE_KEY) || '0', 10);
+      if (submitCount >= 3) {
+        status.classList.add('contact-form__status--error');
+        status.textContent = errorMsg;
+        return;
+      }
+
+      // Validate required fields
+      const requiredFields = form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]');
+      let firstInvalid: HTMLElement | null = null;
+      requiredFields.forEach((field) => {
+        if (!field.validity.valid) {
+          markInvalid(field);
+          if (!firstInvalid) firstInvalid = field;
+        }
+      });
+      if (firstInvalid) {
+        (firstInvalid as HTMLElement).focus();
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = sendingMsg;
+      status.className = 'contact-form__status';
+      status.textContent = '';
+
+      try {
+        const data = Object.fromEntries(new FormData(form));
+        // Remove honeypot field before sending
+        delete (data as Record<string, unknown>).website;
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          sessionStorage.setItem(RATE_KEY, String(submitCount + 1));
+          status.classList.add('contact-form__status--success');
+          status.textContent = successMsg;
+          form.reset();
+          clearValidation();
+        } else {
+          throw new Error(res.statusText);
+        }
+      } catch {
+        status.classList.add('contact-form__status--error');
+        status.textContent = errorMsg;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+  }
+</script>

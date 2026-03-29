@@ -1,0 +1,248 @@
+---
+import { t, localePath, htmlLang } from '@/i18n/index';
+import '@/styles/global.css';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import CookieConsent from '@/components/CookieConsent.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  ogImage?: string;
+  jsonLd?: object | object[];
+  canonicalPath?: string;
+}
+
+const {
+  title,
+  description,
+  lang = 'en',
+  ogImage = '/assets/logo-mark.png',
+  jsonLd,
+  canonicalPath = '/',
+} = Astro.props;
+
+const base = 'https://www.intonationlabs.com';
+const canonical = `${base}${localePath(lang, canonicalPath)}`;
+const enHref = `${base}${localePath('en', canonicalPath)}`;
+const zhHref = `${base}${localePath('zh', canonicalPath)}`;
+const ogLocale = lang === 'zh' ? 'zh_CN' : 'en_US';
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${base}${ogImage}`;
+const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<html lang={htmlLang(lang)} dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <script is:inline>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <script is:inline>
+    function loadGA() {
+      if (document.querySelector('script[src*="googletagmanager"]')) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-JLS3NBVR55';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JLS3NBVR55', { anonymize_ip: true });
+    }
+    function loadTidio() {
+      if (document.querySelector('script[src*="tidio"]')) return;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://code.tidio.co/megth0dn3r3fjqud6z6nfamb3or54acn.js';
+      document.head.appendChild(s);
+    }
+    // Check existing consent
+    try {
+      var consent = JSON.parse(localStorage.getItem('cookie-consent'));
+      if (consent && consent.analytics) loadGA();
+      if (consent && consent.marketing) loadTidio();
+    } catch(e) {}
+    // Listen for consent changes
+    window.addEventListener('cookie-consent-changed', function(e) {
+      if (e.detail.analytics) loadGA();
+      if (e.detail.marketing) loadTidio();
+    });
+  </script>
+
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href={canonical}>
+
+  <link rel="alternate" hreflang="en" href={enHref}>
+  <link rel="alternate" hreflang="zh-Hans" href={zhHref}>
+  <link rel="alternate" hreflang="x-default" href={enHref}>
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonical}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={ogImageUrl}>
+  <meta property="og:site_name" content="Intonation Labs">
+  <meta property="og:locale" content={ogLocale}>
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content={canonical}>
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImageUrl}>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://code.tidio.co">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  {jsonLdItems.map((item) => (
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+  ))}
+</head>
+<body>
+  <a href="#main" class="skip-link">{t(lang, 'skip')}</a>
+
+  <Nav lang={lang} />
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <Footer lang={lang} />
+
+  <button class="scroll-top" aria-label="Scroll to top" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script is:inline>
+  (function () {
+    "use strict";
+
+    var nav = document.querySelector(".nav");
+    function onScroll() { if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 10); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    var reveals = document.querySelectorAll(".reveal");
+    var observerReveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observerReveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -60px 0px" });
+    reveals.forEach(function (el) { observerReveal.observe(el); });
+
+    var scrollTopBtn = document.querySelector(".scroll-top");
+    if (scrollTopBtn) {
+      var scrollTopVisible = false;
+      var scrollTopThreshold = 400;
+      window.addEventListener("scroll", function () {
+        var show = window.scrollY > scrollTopThreshold;
+        if (show !== scrollTopVisible) {
+          scrollTopVisible = show;
+          scrollTopBtn.classList.toggle("visible", show);
+        }
+      }, { passive: true });
+      scrollTopBtn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
+    document.querySelectorAll(".faq-item__question").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var item = btn.parentElement;
+        var answer = item.querySelector(".faq-item__answer");
+        var isOpen = item.classList.contains("is-open");
+        document.querySelectorAll(".faq-item").forEach(function (i) {
+          i.classList.remove("is-open");
+          i.querySelector(".faq-item__answer").style.maxHeight = null;
+          i.querySelector(".faq-item__question").setAttribute("aria-expanded", "false");
+        });
+        if (!isOpen) {
+          item.classList.add("is-open");
+          btn.setAttribute("aria-expanded", "true");
+          answer.style.maxHeight = answer.scrollHeight + 32 + "px";
+        }
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener("click", function (e) {
+        var target = document.querySelector(this.getAttribute("href"));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: "smooth" }); }
+      });
+    });
+  })();
+  </script>
+
+  <CookieConsent lang={lang} />
+
+  <script is:inline>
+    // Global error handler
+    window.addEventListener('error', function(e) {
+      console.warn('[Intonation Labs] Script error caught:', e.message);
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      console.warn('[Intonation Labs] Promise rejection caught:', e.reason);
+    });
+    // Web Vitals (inline, no dependency)
+    if ('PerformanceObserver' in window) {
+      try {
+        // LCP
+        new PerformanceObserver(function(list) {
+          var entries = list.getEntries();
+          var last = entries[entries.length - 1];
+          if (window.gtag) gtag('event', 'web_vital', { event_category: 'Web Vitals', event_label: 'LCP', value: Math.round(last.startTime) });
+        }).observe({ type: 'largest-contentful-paint', buffered: true });
+        // CLS
+        var clsValue = 0;
+        new PerformanceObserver(function(list) {
+          list.getEntries().forEach(function(entry) { if (!entry.hadRecentInput) clsValue += entry.value; });
+        }).observe({ type: 'layout-shift', buffered: true });
+        window.addEventListener('visibilitychange', function() {
+          if (document.visibilityState === 'hidden' && window.gtag) {
+            gtag('event', 'web_vital', { event_category: 'Web Vitals', event_label: 'CLS', value: Math.round(clsValue * 1000) });
+          }
+        });
+      } catch(e) {}
+    }
+    // Offline detection
+    window.addEventListener('offline', function() {
+      document.body.insertAdjacentHTML('afterbegin', '<div id="offline-bar" style="position:fixed;top:0;left:0;right:0;z-index:10000;background:#ef4444;color:#fff;text-align:center;padding:8px;font-size:14px;">You are offline. Some features may be unavailable.</div>');
+    });
+    window.addEventListener('online', function() {
+      var bar = document.getElementById('offline-bar');
+      if (bar) bar.remove();
+    });
+  </script>
+
+  <script is:inline>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function() {});
+      });
+    }
+  </script>
+</body>
+</html>

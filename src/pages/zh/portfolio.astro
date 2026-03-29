@@ -1,0 +1,173 @@
+---
+import Base from '@/layouts/Base.astro';
+import { t, localePath } from '@/i18n/index';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+const lang = 'zh';
+
+const publications = [
+  {
+    title: 'A Multi-Modal Adaptive Microtuning Architecture for Real-Time Just Intonation on the Web',
+    venue: '3rd Symposium on Digital Art in Ireland, UCC & Sample-Studios — April 2026 (Accepted)',
+  },
+  {
+    title: 'MIDI Adaptive Tuning Strategies by Means of AI-Based Real-Time Prediction of Musical Contexts',
+    venue: 'Ubimus Journal — August 2025',
+  },
+  {
+    title: 'Just Intonation and Inharmonicity in Struck-String Interaction',
+    venue: 'Ubimus Journal — October 2024',
+  },
+];
+---
+
+<Base
+  title={t(lang, 'page.portfolio.title')}
+  description={t(lang, 'page.portfolio.desc')}
+  lang={lang}
+  canonicalPath="/portfolio/"
+>
+  <Breadcrumb lang={lang} items={[
+    { label: t(lang, 'breadcrumb.home'), href: localePath(lang, '/') },
+    { label: 'Portfolio' },
+  ]} />
+
+  <section class="section" aria-labelledby="portfolio-title">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">{t(lang, 'port.label')}</p>
+        <h1 id="portfolio-title" class="section__title">{t(lang, 'port.title')}</h1>
+        <p class="section__subtitle">{t(lang, 'port.subtitle')}</p>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-card reveal reveal-delay-1">
+          <span class="portfolio-card__tag portfolio-card__tag--live">{t(lang, 'port.3.tag')}</span>
+          <h2 class="portfolio-card__title">{t(lang, 'port.3.title')}</h2>
+          <p class="portfolio-card__desc">{t(lang, 'port.3.desc')}</p>
+          <div class="portfolio-card__tech">
+            <span class="tech-tag">Next.js 16</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Gemini 2.0 Flash</span>
+            <span class="tech-tag">Lyria</span>
+            <span class="tech-tag">Stripe</span>
+          </div>
+          <div class="portfolio-card__actions">
+            <a href={localePath(lang, '/intonationai/')} class="btn btn--ghost btn--sm">Learn More <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <a href="https://intonationai.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">{t(lang, 'port.live')} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="portfolio-card reveal reveal-delay-2">
+          <span class="portfolio-card__tag portfolio-card__tag--live">{t(lang, 'port.4.tag')}</span>
+          <h2 class="portfolio-card__title">{t(lang, 'port.4.title')}</h2>
+          <p class="portfolio-card__desc">{t(lang, 'port.4.desc')}</p>
+          <div class="portfolio-card__tech">
+            <span class="tech-tag">Next.js 15</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Google STT Chirp 2</span>
+            <span class="tech-tag">Gemini 2.0 Flash</span>
+            <span class="tech-tag">WebSocket</span>
+          </div>
+          <div class="portfolio-card__actions">
+            <a href={localePath(lang, '/intomeeting/')} class="btn btn--ghost btn--sm">Learn More <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <a href="https://intomeeting.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">{t(lang, 'port.live')} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="portfolio-card reveal reveal-delay-3">
+          <span class="portfolio-card__tag portfolio-card__tag--live">{t(lang, 'port.5.tag')}</span>
+          <h2 class="portfolio-card__title">{t(lang, 'port.5.title')}</h2>
+          <p class="portfolio-card__desc">{t(lang, 'port.5.desc')}</p>
+          <div class="portfolio-card__tech">
+            <span class="tech-tag">Next.js 15</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Claude Sonnet</span>
+            <span class="tech-tag">Gemini 2.0 Flash</span>
+            <span class="tech-tag">Imagen 3</span>
+          </div>
+          <div class="portfolio-card__actions">
+            <a href={localePath(lang, '/intomarketing/')} class="btn btn--ghost btn--sm">Learn More <span class="arrow" aria-hidden="true">&rarr;</span></a>
+            <a href="https://intomarketing.app" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--sm">{t(lang, 'port.live')} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="portfolio-card reveal reveal-delay-4">
+          <span class="portfolio-card__tag">{t(lang, 'port.1.tag')}</span>
+          <h2 class="portfolio-card__title">{t(lang, 'port.1.title')}</h2>
+          <p class="portfolio-card__desc">{t(lang, 'port.1.desc')}</p>
+          <div class="portfolio-card__tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">PyTorch</span>
+            <span class="tech-tag">WebAudio API</span>
+            <span class="tech-tag">Flask</span>
+            <span class="tech-tag">Ensemble ML</span>
+          </div>
+        </div>
+        <div class="portfolio-card reveal reveal-delay-5">
+          <span class="portfolio-card__tag">{t(lang, 'port.2.tag')}</span>
+          <h2 class="portfolio-card__title">{t(lang, 'port.2.title')}</h2>
+          <p class="portfolio-card__desc">{t(lang, 'port.2.desc')}</p>
+          <div class="portfolio-card__tech">
+            <span class="tech-tag">Audio DSP</span>
+            <span class="tech-tag">N-gram Models</span>
+            <span class="tech-tag">WebMIDI</span>
+            <span class="tech-tag">MIDI 2.0</span>
+            <span class="tech-tag">MTS/MPE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="publications mt-2xl">
+        <h2 class="publications__heading reveal">{t(lang, 'about.pubs')}</h2>
+        <div class="publications__list">
+          {publications.map((pub, i) => (
+            <div class={`pub-item reveal reveal-delay-${i + 1}`}>
+              <p class="pub-item__title">{pub.title}</p>
+              <p class="pub-item__venue">{pub.venue}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="text-center mt-2xl reveal">
+        <a href="https://github.com/ruisuphd" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">{t(lang, 'port.gh')} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" aria-labelledby="cta-title">
+    <div class="container text-center">
+      <h2 id="cta-title" class="section__title reveal">{t(lang, 'cta.title')}</h2>
+      <p class="section__subtitle mx-auto reveal reveal-delay-1">{t(lang, 'cta.subtitle')}</p>
+      <div class="cta__actions reveal reveal-delay-2">
+        <a href="https://calendar.app.google/JDEqiw8AM2UbtU6X6" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">{t(lang, 'cta.btn1')}</a>
+        <a href={localePath(lang, '/contact/')} class="btn btn--outline-light btn--lg">{t(lang, 'cta.btn2')}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .portfolio-card__tag--live {
+    background-color: color-mix(in srgb, var(--c-accent) 12%, transparent);
+    color: var(--c-accent);
+  }
+  .portfolio-card__actions {
+    display: flex;
+    gap: var(--s-sm);
+    margin-top: var(--s-md);
+    flex-wrap: wrap;
+  }
+  .publications__heading {
+    font-family: var(--f-heading);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-text-tertiary);
+    margin-bottom: var(--s-lg);
+  }
+  .publications__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-md);
+  }
+</style>

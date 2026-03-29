@@ -1,0 +1,225 @@
+---
+import Base from '@/layouts/Base.astro';
+import { t, localePath } from '@/i18n/index';
+import ServiceCard from '@/components/ServiceCard.astro';
+import FAQItem from '@/components/FAQItem.astro';
+
+const lang = 'zh';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Intonation Labs Pte. Ltd.",
+    "url": "https://www.intonationlabs.com/",
+    "logo": "https://www.intonationlabs.com/assets/logo.png",
+    "description": "AI consulting firm delivering production-grade Generative AI, RAG systems, agentic AI architecture, and ML deployment for startups and enterprises worldwide.",
+    "founder": {
+      "@type": "Person",
+      "name": "Rui Su",
+      "jobTitle": "Founder & Director",
+      "url": "https://www.ruisuphd.com"
+    },
+    "email": "info@intonationlabs.com",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "info@intonationlabs.com",
+      "availableLanguage": ["English", "Chinese"]
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "SG",
+      "addressLocality": "Singapore"
+    },
+    "sameAs": [
+      "https://linkedin.com/company/intonation-labs",
+      "https://github.com/ruisuphd",
+      "https://www.ruisuphd.com"
+    ],
+    "areaServed": "Worldwide"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Intonation Labs",
+    "url": "https://www.intonationlabs.com/",
+    "inLanguage": ["en", "zh-Hans"],
+    "description": "AI consulting and ML engineering firm delivering production-grade GenAI solutions worldwide."
+  }
+];
+
+const sparkleIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>`;
+const nodesIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6c0 1.66 1.34 3 3 3h6"/><line x1="18" y1="9" x2="18" y2="15"/></svg>`;
+const layersIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`;
+---
+
+<Base
+  title={t(lang, 'site.title')}
+  description={t(lang, 'site.desc')}
+  lang={lang}
+  jsonLd={jsonLd}
+  canonicalPath="/"
+>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero__content">
+        <div class="hero__badge reveal">{t(lang, 'hero.badge')}</div>
+        <div class="hero__brand reveal reveal-delay-1">
+          <img src="/assets/logo-mark.png" alt="Intonation Labs" width="1024" height="682" fetchpriority="high">
+        </div>
+        <h1 id="hero-title" class="hero__title reveal reveal-delay-2">
+          {t(lang, 'hero.title.1')}<br>
+          {t(lang, 'hero.title.2')}<br>
+          <span class="hero__accent">{t(lang, 'hero.title.3')}</span>
+        </h1>
+        <p class="hero__desc reveal reveal-delay-3">{t(lang, 'hero.desc')}</p>
+        <div class="hero__actions reveal reveal-delay-4">
+          <a href="https://calendar.app.google/JDEqiw8AM2UbtU6X6" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">{t(lang, 'hero.cta1')}</a>
+          <a href={localePath(lang, '/services')} class="btn btn--outline btn--lg">{t(lang, 'hero.cta2')}</a>
+        </div>
+        <div class="hero__proof reveal">
+          <div class="hero__stat">
+            <div class="hero__stat-number">{t(lang, 'hero.stat1.num')}</div>
+            <div class="hero__stat-label">{t(lang, 'hero.stat1.label')}</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-number">{t(lang, 'hero.stat2.num')}</div>
+            <div class="hero__stat-label">{t(lang, 'hero.stat2.label')}</div>
+          </div>
+          <div class="hero__stat">
+            <div class="hero__stat-number">{t(lang, 'hero.stat3.num')}</div>
+            <div class="hero__stat-label">{t(lang, 'hero.stat3.label')}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credibility Bar -->
+  <section class="credibility" aria-label={t(lang, 'cred.label')}>
+    <div class="container">
+      <p class="credibility__label">{t(lang, 'cred.label')}</p>
+      <div class="credibility__logos">
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/></svg></span>
+          <span>{t(lang, 'cred.maynooth')}</span>
+        </div>
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg></span>
+          <span>{t(lang, 'cred.ucdavis')}</span>
+        </div>
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+          <span>{t(lang, 'cred.ibm')}</span>
+        </div>
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+          <span>{t(lang, 'cred.aws')}</span>
+        </div>
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+          <span>{t(lang, 'cred.gcp')}</span>
+        </div>
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          <span>{t(lang, 'cred.ubimus')}</span>
+        </div>
+        <div class="credibility__item">
+          <span class="credibility__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span>{t(lang, 'cred.sg')}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Overview (condensed) -->
+  <section id="services" class="section" aria-labelledby="services-title">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">{t(lang, 'svc.label')}</p>
+        <h2 id="services-title" class="section__title">{t(lang, 'svc.title')}</h2>
+        <p class="section__subtitle">{t(lang, 'svc.subtitle')}</p>
+      </div>
+      <div class="services-grid">
+        <ServiceCard icon={sparkleIcon} title={t(lang, 'svc.1.title')} desc={t(lang, 'svc.1.desc')} scope={t(lang, 'svc.1.scope')} delay={1} />
+        <ServiceCard icon={nodesIcon} title={t(lang, 'svc.2.title')} desc={t(lang, 'svc.2.desc')} scope={t(lang, 'svc.2.scope')} delay={2} />
+        <ServiceCard icon={layersIcon} title={t(lang, 'svc.3.title')} desc={t(lang, 'svc.3.desc')} scope={t(lang, 'svc.3.scope')} delay={3} />
+      </div>
+      <div class="text-center mt-2xl reveal">
+        <a href={localePath(lang, '/services')} class="btn btn--ghost">View All Services <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section section--alt" aria-labelledby="process-title">
+    <div class="container">
+      <div class="section__header text-center reveal">
+        <p class="section__label">{t(lang, 'proc.label')}</p>
+        <h2 id="process-title" class="section__title">{t(lang, 'proc.title')}</h2>
+        <p class="section__subtitle mx-auto">{t(lang, 'proc.subtitle')}</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step reveal reveal-delay-1">
+          <div class="process-step__number">{t(lang, 'proc.1.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.1.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.1.desc')}</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="process-step__number">{t(lang, 'proc.2.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.2.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.2.desc')}</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="process-step__number">{t(lang, 'proc.3.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.3.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.3.desc')}</p>
+        </div>
+        <div class="process-step reveal reveal-delay-4">
+          <div class="process-step__number">{t(lang, 'proc.4.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.4.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.4.desc')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">{t(lang, 'faq.label')}</p>
+        <h2 id="faq-title" class="section__title">{t(lang, 'faq.title')}</h2>
+      </div>
+      <div class="faq-list reveal">
+        <FAQItem question={t(lang, 'faq.q1')} answer={t(lang, 'faq.a1')} />
+        <FAQItem question={t(lang, 'faq.q2')} answer={t(lang, 'faq.a2')} />
+        <FAQItem question={t(lang, 'faq.q3')} answer={t(lang, 'faq.a3')} />
+        <FAQItem question={t(lang, 'faq.q4')} answer={t(lang, 'faq.a4')} />
+        <FAQItem question={t(lang, 'faq.q5')} answer={t(lang, 'faq.a5')} />
+        <FAQItem question={t(lang, 'faq.q6')} answer={t(lang, 'faq.a6')} />
+        <FAQItem question={t(lang, 'faq.q7')} answer={t(lang, 'faq.a7')} />
+        <FAQItem question={t(lang, 'faq.q8')} answer={t(lang, 'faq.a8')} />
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" aria-labelledby="cta-title">
+    <div class="container text-center">
+      <h2 id="cta-title" class="section__title reveal">{t(lang, 'cta.title')}</h2>
+      <p class="section__subtitle mx-auto reveal reveal-delay-1">{t(lang, 'cta.subtitle')}</p>
+      <div class="cta__actions reveal reveal-delay-2">
+        <a href="https://calendar.app.google/JDEqiw8AM2UbtU6X6" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">{t(lang, 'cta.btn1')}</a>
+        <a href={localePath(lang, '/contact')} class="btn btn--outline-light btn--lg">{t(lang, 'cta.btn2')}</a>
+      </div>
+      <div class="cta__contact reveal reveal-delay-3">
+        <p><a href="mailto:info@intonationlabs.com">info@intonationlabs.com</a></p>
+      </div>
+    </div>
+  </section>
+
+</Base>

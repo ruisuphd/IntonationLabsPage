@@ -1,0 +1,86 @@
+---
+import Base from '@/layouts/Base.astro';
+import { t, localePath } from '@/i18n/index';
+import WorkshopCard from '@/components/WorkshopCard.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+const lang = 'en';
+
+const workshops = [
+  { format: t(lang, 'ws.1.format'), formatClass: 'hands-on', title: t(lang, 'ws.1.title'), desc: t(lang, 'ws.1.desc'), duration: t(lang, 'ws.1.dur'), price: t(lang, 'ws.1.price') },
+  { format: t(lang, 'ws.2.format'), formatClass: 'strategic', title: t(lang, 'ws.2.title'), desc: t(lang, 'ws.2.desc'), duration: t(lang, 'ws.2.dur'), price: t(lang, 'ws.2.price') },
+  { format: t(lang, 'ws.3.format'), formatClass: 'hands-on', title: t(lang, 'ws.3.title'), desc: t(lang, 'ws.3.desc'), duration: t(lang, 'ws.3.dur'), price: t(lang, 'ws.3.price') },
+  { format: t(lang, 'ws.4.format'), formatClass: 'custom', title: t(lang, 'ws.4.title'), desc: t(lang, 'ws.4.desc'), duration: t(lang, 'ws.4.dur'), price: t(lang, 'ws.4.price') },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: workshops.map((ws, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Course',
+      name: ws.title,
+      description: ws.desc,
+      provider: {
+        '@type': 'Organization',
+        name: 'Intonation Labs Pte. Ltd.',
+        url: 'https://www.intonationlabs.com',
+      },
+    },
+  })),
+};
+---
+
+<Base
+  title={t(lang, 'page.workshops.title')}
+  description={t(lang, 'page.workshops.desc')}
+  lang={lang}
+  jsonLd={jsonLd}
+  canonicalPath="/workshops/"
+>
+  <Breadcrumb lang={lang} items={[
+    { label: t(lang, 'breadcrumb.home'), href: localePath(lang, '/') },
+    { label: 'Workshops' },
+  ]} />
+
+  <section class="section" aria-labelledby="workshops-title">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">{t(lang, 'ws.label')}</p>
+        <h1 id="workshops-title" class="section__title">{t(lang, 'ws.title')}</h1>
+        <p class="section__subtitle">{t(lang, 'ws.subtitle')}</p>
+      </div>
+
+      <div class="workshops-grid">
+        {workshops.map((ws, i) => (
+          <WorkshopCard
+            format={ws.format}
+            formatClass={ws.formatClass}
+            title={ws.title}
+            desc={ws.desc}
+            duration={ws.duration}
+            price={ws.price}
+            delay={i + 1}
+          />
+        ))}
+      </div>
+
+      <div class="text-center mt-2xl reveal">
+        <a href={localePath(lang, '/contact/')} class="btn btn--primary btn--lg">{t(lang, 'ws.cta')} <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" aria-labelledby="cta-title">
+    <div class="container text-center">
+      <h2 id="cta-title" class="section__title reveal">{t(lang, 'cta.title')}</h2>
+      <p class="section__subtitle mx-auto reveal reveal-delay-1">{t(lang, 'cta.subtitle')}</p>
+      <div class="cta__actions reveal reveal-delay-2">
+        <a href="https://calendar.app.google/JDEqiw8AM2UbtU6X6" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">{t(lang, 'cta.btn1')}</a>
+        <a href={localePath(lang, '/contact/')} class="btn btn--outline-light btn--lg">{t(lang, 'cta.btn2')}</a>
+      </div>
+    </div>
+  </section>
+</Base>

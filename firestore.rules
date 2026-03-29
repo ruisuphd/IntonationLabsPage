@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /leads/{leadId} {
+      allow create: if
+        request.resource.data.keys().hasAll(['name', 'email', 'message', 'inquiry_type']) &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() >= 2 &&
+        request.resource.data.name.size() <= 200 &&
+        request.resource.data.email is string &&
+        request.resource.data.email.size() >= 5 &&
+        request.resource.data.email.size() <= 254 &&
+        request.resource.data.message is string &&
+        request.resource.data.message.size() >= 10 &&
+        request.resource.data.message.size() <= 5000 &&
+        request.resource.data.inquiry_type in ['consulting', 'workshop', 'intonationai', 'other'] &&
+        request.resource.data.keys().size() <= 10;
+      allow read, update, delete: if false;
+    }
+  }
+}

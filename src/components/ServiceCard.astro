@@ -1,0 +1,18 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  desc: string;
+  scope: string;
+  delay?: number;
+}
+
+const { icon, title, desc, scope, delay = 1 } = Astro.props;
+---
+
+<div class={`service-card reveal reveal-delay-${delay}`}>
+  <div class="service-card__icon" aria-hidden="true"><Fragment set:html={icon} /></div>
+  <h3 class="service-card__title">{title}</h3>
+  <p class="service-card__desc">{desc}</p>
+  <span class="service-card__scope">{scope}</span>
+</div>

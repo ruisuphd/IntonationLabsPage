@@ -1,0 +1,31 @@
+---
+import Base from '@/layouts/Base.astro';
+import { t, localePath } from '@/i18n/index';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+const lang = 'zh';
+---
+
+<Base
+  title={t(lang, 'page.blog.title')}
+  description={t(lang, 'page.blog.desc')}
+  lang={lang}
+  canonicalPath="/blog"
+>
+  <Breadcrumb
+    lang={lang}
+    items={[
+      { label: t(lang, 'breadcrumb.home'), href: localePath(lang, '/') },
+      { label: t(lang, 'nav.blog') || 'Blog' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="blog-empty reveal">
+        <h1 class="blog-empty__title">{t(lang, 'blog.empty')}</h1>
+        <p class="section__subtitle mx-auto">{t(lang, 'blog.empty.desc')}</p>
+      </div>
+    </div>
+  </section>
+</Base>

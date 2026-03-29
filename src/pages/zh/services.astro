@@ -1,0 +1,125 @@
+---
+import Base from '@/layouts/Base.astro';
+import { t, localePath } from '@/i18n/index';
+import ServiceCard from '@/components/ServiceCard.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+
+const lang = 'zh';
+
+const sparkleIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>`;
+const nodesIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6c0 1.66 1.34 3 3 3h6"/><line x1="18" y1="9" x2="18" y2="15"/></svg>`;
+const layersIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`;
+const lightningIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+const targetIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+const refreshIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>`;
+const micIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>`;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Intonation Labs — AI Consulting",
+  "url": "https://www.intonationlabs.com/services/",
+  "description": "Specialist ML and GenAI engineering consultancy delivering production-grade AI solutions for startups and enterprises worldwide.",
+  "priceRange": "$$-$$$",
+  "address": { "@type": "PostalAddress", "addressCountry": "SG", "addressLocality": "Singapore" },
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "AI Consulting Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Generative AI & RAG Systems" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agentic AI Architecture" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Production ML Deployment" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Real-Time Inference Systems" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Strategy & Assessment" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Monthly Retainer" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Voice & Audio AI" } }
+    ]
+  }
+};
+---
+
+<Base
+  title={t(lang, 'page.services.title')}
+  description={t(lang, 'page.services.desc')}
+  lang={lang}
+  jsonLd={jsonLd}
+  canonicalPath="/services/"
+>
+
+  <Breadcrumb lang={lang} items={[
+    { label: t(lang, 'breadcrumb.home'), href: localePath(lang, '/') },
+    { label: t(lang, 'nav.services') }
+  ]} />
+
+  <!-- Header -->
+  <section class="section" aria-labelledby="services-title" style="padding-top: var(--s-xl);">
+    <div class="container">
+      <div class="section__header reveal">
+        <p class="section__label">{t(lang, 'svc.label')}</p>
+        <h1 id="services-title" class="section__title">{t(lang, 'svc.title')}</h1>
+        <p class="section__subtitle">{t(lang, 'svc.subtitle')}</p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="services-grid">
+        <ServiceCard icon={sparkleIcon} title={t(lang, 'svc.1.title')} desc={t(lang, 'svc.1.desc')} scope={t(lang, 'svc.1.scope')} delay={1} />
+        <ServiceCard icon={nodesIcon} title={t(lang, 'svc.2.title')} desc={t(lang, 'svc.2.desc')} scope={t(lang, 'svc.2.scope')} delay={2} />
+        <ServiceCard icon={layersIcon} title={t(lang, 'svc.3.title')} desc={t(lang, 'svc.3.desc')} scope={t(lang, 'svc.3.scope')} delay={3} />
+        <ServiceCard icon={lightningIcon} title={t(lang, 'svc.4.title')} desc={t(lang, 'svc.4.desc')} scope={t(lang, 'svc.4.scope')} delay={1} />
+        <ServiceCard icon={targetIcon} title={t(lang, 'svc.5.title')} desc={t(lang, 'svc.5.desc')} scope={t(lang, 'svc.5.scope')} delay={2} />
+        <ServiceCard icon={refreshIcon} title={t(lang, 'svc.6.title')} desc={t(lang, 'svc.6.desc')} scope={t(lang, 'svc.6.scope')} delay={3} />
+        <ServiceCard icon={micIcon} title={t(lang, 'svc.7.title')} desc={t(lang, 'svc.7.desc')} scope={t(lang, 'svc.7.scope')} delay={1} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section section--alt" aria-labelledby="process-title">
+    <div class="container">
+      <div class="section__header text-center reveal">
+        <p class="section__label">{t(lang, 'proc.label')}</p>
+        <h2 id="process-title" class="section__title">{t(lang, 'proc.title')}</h2>
+        <p class="section__subtitle mx-auto">{t(lang, 'proc.subtitle')}</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step reveal reveal-delay-1">
+          <div class="process-step__number">{t(lang, 'proc.1.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.1.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.1.desc')}</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="process-step__number">{t(lang, 'proc.2.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.2.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.2.desc')}</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="process-step__number">{t(lang, 'proc.3.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.3.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.3.desc')}</p>
+        </div>
+        <div class="process-step reveal reveal-delay-4">
+          <div class="process-step__number">{t(lang, 'proc.4.num')}</div>
+          <h3 class="process-step__title">{t(lang, 'proc.4.title')}</h3>
+          <p class="process-step__desc">{t(lang, 'proc.4.desc')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" aria-labelledby="cta-title">
+    <div class="container text-center">
+      <h2 id="cta-title" class="section__title reveal">{t(lang, 'cta.title')}</h2>
+      <p class="section__subtitle mx-auto reveal reveal-delay-1">{t(lang, 'cta.subtitle')}</p>
+      <div class="cta__actions reveal reveal-delay-2">
+        <a href="https://calendar.app.google/JDEqiw8AM2UbtU6X6" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">{t(lang, 'cta.btn1')}</a>
+        <a href={localePath(lang, '/contact')} class="btn btn--outline-light btn--lg">{t(lang, 'cta.btn2')}</a>
+      </div>
+      <div class="cta__contact reveal reveal-delay-3">
+        <p><a href="mailto:info@intonationlabs.com">info@intonationlabs.com</a></p>
+      </div>
+    </div>
+  </section>
+
+</Base>
